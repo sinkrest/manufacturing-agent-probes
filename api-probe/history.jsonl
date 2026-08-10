@@ -1,0 +1,56 @@
+{"run":"2026-04-16","slug":"shapeways","total_score":63,"confidence":"doc-only","delta":null}
+{"run":"2026-04-16","slug":"pcbway","total_score":45,"confidence":"doc-only","delta":null}
+{"run":"2026-04-16","slug":"xometry","total_score":40,"confidence":"doc-only","delta":null}
+{"run":"2026-04-16","slug":"hubs","total_score":35,"confidence":"doc-only","delta":null}
+{"run":"2026-04-16","slug":"jlcpcb","total_score":30,"confidence":"doc-only","delta":null}
+{"run":"2026-04-16","slug":"protolabs","total_score":25,"confidence":"doc-only","delta":null}
+{"run":"2026-04-16","slug":"fictiv","total_score":20,"confidence":"doc-only","delta":null}
+{"run":"2026-04-20","slug":"shapeways","total_score":88,"confidence":"doc-only","delta":25}
+{"run":"2026-04-20","slug":"pcbway","total_score":65,"confidence":"doc-only","delta":20}
+{"run":"2026-04-20","slug":"jlcpcb","total_score":38,"confidence":"doc-only","delta":8}
+{"run":"2026-04-20","slug":"xometry","total_score":5,"confidence":"doc-only","delta":-35}
+{"run":"2026-04-20","slug":"hubs","total_score":0,"confidence":"doc-only","delta":-35}
+{"run":"2026-04-20","slug":"protolabs","total_score":0,"confidence":"doc-only","delta":-25}
+{"run":"2026-04-20","slug":"fictiv","total_score":0,"confidence":"doc-only","delta":-20}
+{"run":"2026-04-27","slug":"shapeways","total_score":88,"confidence":"doc-only","delta":0}
+{"run":"2026-04-27","slug":"pcbway","total_score":65,"confidence":"doc-only","delta":0}
+{"run":"2026-04-27","slug":"jlcpcb","total_score":38,"confidence":"doc-only","delta":0}
+{"run":"2026-04-27","slug":"xometry","total_score":5,"confidence":"doc-only","delta":0}
+{"run":"2026-04-27","slug":"hubs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-04-27","slug":"protolabs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-04-27","slug":"fictiv","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"shapeways","total_score":88,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"pcbway","total_score":65,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"jlcpcb","total_score":38,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"xometry","total_score":5,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"hubs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"protolabs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"fictiv","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-05-11","slug":"shapeways","total_score":88,"confidence":"doc-only","delta":0}
+{"run":"2026-05-11","slug":"pcbway","total_score":65,"confidence":"doc-only","delta":0}
+{"run":"2026-05-11","slug":"jlcpcb","total_score":38,"confidence":"doc-only","delta":0}
+{"run":"2026-05-11","slug":"xometry","total_score":5,"confidence":"doc-only","delta":0}
+{"run":"2026-05-11","slug":"hubs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-05-11","slug":"protolabs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-05-11","slug":"fictiv","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-06-08","slug":"shapeways","total_score":88,"confidence":"doc-only","delta":0}
+{"run":"2026-06-08","slug":"pcbway","total_score":65,"confidence":"doc-only","delta":0}
+{"run":"2026-06-08","slug":"jlcpcb","total_score":38,"confidence":"doc-only","delta":0}
+{"run":"2026-06-08","slug":"xometry","total_score":5,"confidence":"doc-only","delta":0}
+{"run":"2026-06-08","slug":"hubs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-06-08","slug":"protolabs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-06-08","slug":"fictiv","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"shapeways","total_score":88,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"pcbway","total_score":65,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"jlcpcb","total_score":38,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"xometry","total_score":5,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"hubs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"protolabs","total_score":0,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"fictiv","total_score":0,"confidence":"doc-only","delta":0}
+{"run": "2026-06-30", "slug": "shapeways", "total_score": 88, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-30", "slug": "pcbway", "total_score": 65, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-30", "slug": "jlcpcb", "total_score": 38, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-30", "slug": "xometry", "total_score": 5, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-30", "slug": "hubs", "total_score": 0, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-30", "slug": "protolabs", "total_score": 0, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-30", "slug": "fictiv", "total_score": 0, "confidence": "doc-only", "delta": 0}

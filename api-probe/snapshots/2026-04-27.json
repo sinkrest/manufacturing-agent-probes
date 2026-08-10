@@ -1,0 +1,371 @@
+{
+  "run": "2026-04-27",
+  "methodology_version": "1.0",
+  "probe_notes": "Third run. No dimension-level changes detected across all 7 vendors. Doc-only probe this week — vendor pages either returned 404 (Xometry docs, Protolabs API page, Fictiv API page) or minimal content with no new announcements. Confirmed: Shapeways remains the sole vendor with a documented end-to-end buyer API (upload → price → order with payment → track). PCB vendors (PCBWay, JLCPCB) hold the second tier. Multi-process vendors (Xometry, Protolabs, Hubs, Fictiv) remain at zero public API surface for buyers. Stable week = baseline consolidation.",
+  "vendors": [
+    {
+      "slug": "shapeways",
+      "display_name": "Shapeways",
+      "category": "3DP",
+      "total_score": 88,
+      "confidence": "doc-only",
+      "dimensions": {
+        "instant_quote": {
+          "score": 20,
+          "notes": "POST /models/v1 accepts 3D model file upload. Pricing retrieved via GET /models/{modelId}/v1 after async processing. Full upload-to-price flow documented and confirmed stable.",
+          "source_url": "https://developers.shapeways.com/"
+        },
+        "structured_pricing": {
+          "score": 15,
+          "notes": "Material objects in GET /models/{modelId}/v1 response include 'price' (float, USD), 'markup' (float), 'isActive' (bool) fields keyed by materialId. Fully parseable JSON. No changes detected.",
+          "source_url": "https://developers.shapeways.com/"
+        },
+        "api_order": {
+          "score": 20,
+          "notes": "POST /orders/v1 documented for full order placement. Required params include shipping address, items array (modelId + materialId + quantity), and paymentMethod: 'credit_card'. Returns orderId and productionOrderIds. Full order including payment confirmed via API — no browser step required. Confirmed stable this run.",
+          "source_url": "https://developers.shapeways.com/"
+        },
+        "order_status": {
+          "score": 10,
+          "notes": "GET /orders/{orderId}/v1 polling endpoint returns ordersCount object (placed, in_production, shipped, cancelled), shipments array with trackingNumber + trackingLink, and targetDeliveryDate. No webhooks documented. Stable.",
+          "source_url": "https://developers.shapeways.com/"
+        },
+        "auth_accessibility": {
+          "score": 10,
+          "notes": "OAuth 2.0 self-serve. Two flows: client_credentials (POST to api.shapeways.com/oauth2/token with Basic Auth, expires_in: 3600) and authorization_code. No approval gate — standard sign-up at developers.shapeways.com. Stable.",
+          "source_url": "https://developers.shapeways.com/"
+        },
+        "rate_limits": {
+          "score": 0,
+          "notes": "No rate limit documentation found. Confirmed absent again this run.",
+          "source_url": "https://developers.shapeways.com/"
+        },
+        "dfm_feedback": {
+          "score": 10,
+          "notes": "Model detail response includes 'printable' field, rejection objects with reasonTitle + comment + pictureUrl, and restriction objects with restrictionId + restrictionName. Structured printability feedback in API response. Stable.",
+          "source_url": "https://developers.shapeways.com/"
+        },
+        "ttfq_speed": {
+          "score": 3,
+          "notes": "Upload and processing are async — pricing available after model processing completes. No documented SLA; async flow implies minutes range. Scoring 3 pts pending live probe confirmation. Stable.",
+          "source_url": "https://developers.shapeways.com/"
+        }
+      },
+      "delta_vs_last_week": 0,
+      "notable_changes": []
+    },
+    {
+      "slug": "pcbway",
+      "display_name": "PCBWay",
+      "category": "PCB",
+      "total_score": 65,
+      "confidence": "doc-only",
+      "dimensions": {
+        "instant_quote": {
+          "score": 20,
+          "notes": "POST api/Pcb/PcbQuotation — parameter-based sync quoting endpoint. Pass board specs (dimensions, layers, material, surface finish, quantity) and receive priceList[] array immediately. Synchronous single-call response. Docs at api-partner.pcbway.com confirmed accessible; PDF reference still cited on homepage. Stable.",
+          "source_url": "https://api-partner.pcbway.com/"
+        },
+        "structured_pricing": {
+          "score": 15,
+          "notes": "Response includes priceList[] array with objects containing BuildDays (int), BuildText (string), Express (bool), Standard (bool), Price (decimal). Shipping struct: ShipCost, ShipDays, Weight, IsRas. Fully documented JSON schema. Stable.",
+          "source_url": "https://api-partner.pcbway.com/"
+        },
+        "api_order": {
+          "score": 10,
+          "notes": "Five-step documented flow: (1) PcbQuotation, (2) PlaceOrder with Gerber file upload (Base64 or URL), (3) GetFreightByOrder, (4) ConfirmOrder. Payment: 'Pay to Partner' (account balance, fully automated) or 'Pay to PCBWay' (returns PCBWayPayUrl — web redirect). Full automation requires pre-loaded account balance; web redirect fallback limits score. No payment method upgrade detected this run.",
+          "source_url": "https://api-partner.pcbway.com/"
+        },
+        "order_status": {
+          "score": 10,
+          "notes": "POST api/Pcb/QueryOrderProcess returns AllProcess[] (all fabrication stages) and List[] of completed stages with timestamps. CheckOrderDetails also available. No webhooks documented. Stable.",
+          "source_url": "https://api-partner.pcbway.com/"
+        },
+        "auth_accessibility": {
+          "score": 5,
+          "notes": "Static API key in 'api-key' header. Access requires emailing anson@pcbway.com with company/business context — API key on request. No self-serve path detected. Stable.",
+          "source_url": "https://api-partner.pcbway.com/"
+        },
+        "rate_limits": {
+          "score": 0,
+          "notes": "Not publicly documented in partner docs or PDF. Confirmed absent this run.",
+          "source_url": "https://api-partner.pcbway.com/"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "No DFM feedback in API responses. Quote returns price only. DFM checks happen post-order, communicated out-of-band via email. Confirmed absent this run.",
+          "source_url": "https://api-partner.pcbway.com/"
+        },
+        "ttfq_speed": {
+          "score": 5,
+          "notes": "PcbQuotation is synchronous — single POST returns price array immediately. Under 1 minute by architecture. Confirmed stable.",
+          "source_url": "https://api-partner.pcbway.com/"
+        }
+      },
+      "delta_vs_last_week": 0,
+      "notable_changes": []
+    },
+    {
+      "slug": "jlcpcb",
+      "display_name": "JLCPCB",
+      "category": "PCB",
+      "total_score": 38,
+      "confidence": "doc-only",
+      "dimensions": {
+        "instant_quote": {
+          "score": 20,
+          "notes": "PCB API publicly described as supporting Gerber file uploads, automated pricing, order creation, and production tracking. Four API categories: PCB, SMT Stencil, 3D Printing, Parts/Components. 'Real-time quotations' stated. Help article confirms API exists at api.jlcpcb.com — full endpoint spec gated behind approved access. No changes detected.",
+          "source_url": "https://jlcpcb.com/help/article/106-How-to-use-JLCPCB-OpenAPI"
+        },
+        "structured_pricing": {
+          "score": 0,
+          "notes": "Automated pricing confirmed at capability level but actual JSON response schema fully gated behind approved developer access. Cannot verify structured fields without approved account. Scoring 0 per probe rule: no verifiable citation.",
+          "source_url": "https://jlcpcb.com/help/article/106-How-to-use-JLCPCB-OpenAPI"
+        },
+        "api_order": {
+          "score": 0,
+          "notes": "Order creation endpoint exists but payment requires JLCPCB wallet balance — not a general payment API. Full endpoint spec gated. Cannot confirm automated end-to-end without approved access.",
+          "source_url": "https://jlcpcb.com/help/article/106-How-to-use-JLCPCB-OpenAPI"
+        },
+        "order_status": {
+          "score": 10,
+          "notes": "Described as 'comprehensive order lifecycle management with real-time status tracking.' Mechanism (webhook vs polling) not publicly documented. Scoring polling-level (10 pts) pending webhook confirmation. Stable.",
+          "source_url": "https://jlcpcb.com/help/article/106-How-to-use-JLCPCB-OpenAPI"
+        },
+        "auth_accessibility": {
+          "score": 5,
+          "notes": "Three-credential system: app_id + access_key + secret_key with RSA key pair. Application submitted at api.jlcpcb.com — reviewed based on order history and business circumstances. Not all applications approved. Classifies as 'API key on request'. Stable.",
+          "source_url": "https://jlcpcb.com/help/article/106-How-to-use-JLCPCB-OpenAPI"
+        },
+        "rate_limits": {
+          "score": 0,
+          "notes": "Not publicly documented. Gated behind approved access. Stable.",
+          "source_url": "https://jlcpcb.com/help/article/106-How-to-use-JLCPCB-OpenAPI"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "JLCDFM exists as a separate tool (jlcdfm.com) — not integrated into API quote response. No public documentation of DFM fields in API responses. Stable.",
+          "source_url": "https://jlcdfm.com"
+        },
+        "ttfq_speed": {
+          "score": 3,
+          "notes": "Described as 'real-time' quotations. No specific SLA documented. Scoring 3 pts (1 min to 1 hr) — 'real-time' implies async-but-fast rather than human-review-gated. Stable.",
+          "source_url": "https://jlcpcb.com/help/article/106-How-to-use-JLCPCB-OpenAPI"
+        }
+      },
+      "delta_vs_last_week": 0,
+      "notable_changes": []
+    },
+    {
+      "slug": "xometry",
+      "display_name": "Xometry",
+      "category": "Multi",
+      "total_score": 5,
+      "confidence": "doc-only",
+      "dimensions": {
+        "instant_quote": {
+          "score": 0,
+          "notes": "Xometry's developer API (developer.xometry.com / Workcenter) is a SUPPLIER-SIDE API only — routes manufacturing jobs from Xometry to partner shops. No buyer-facing API for CAD upload → instant quote exists publicly. Confirmed this run: only Jobs, Offers, and Webhooks APIs documented — all supplier-facing. No change.",
+          "source_url": "https://developer.xometry.com/"
+        },
+        "structured_pricing": {
+          "score": 0,
+          "notes": "No buyer-facing pricing API exists publicly. Pricing returned only through Xometry web UI quoting flow. Stable.",
+          "source_url": "https://developer.xometry.com/"
+        },
+        "api_order": {
+          "score": 0,
+          "notes": "No buyer-facing order placement API. Workcenter API is inbound (Xometry pushes jobs to partner shops). Enterprise buyer integration requires partner agreement beyond anything self-serve. Stable.",
+          "source_url": "https://developer.xometry.com/"
+        },
+        "order_status": {
+          "score": 0,
+          "notes": "Webhooks confirmed in Workcenter API (Job Created, Job Revised, Job Status Updated) with exponential backoff retry — but these are SUPPLIER-side webhooks (job routing to partners), not buyer order tracking. No buyer-facing status endpoint. Stable.",
+          "source_url": "https://developer.xometry.com/"
+        },
+        "auth_accessibility": {
+          "score": 5,
+          "notes": "API key via X-API-Key header. Keys generated at start.workcenter.xometry.com/settings/partner/developer/tokens without sales call — but this auth is for the supplier/partner API. Scoring 5 pts as mechanism is 'API key on request' even though it is for the wrong audience. Confirmed this run.",
+          "source_url": "https://developer.xometry.com/"
+        },
+        "rate_limits": {
+          "score": 0,
+          "notes": "Not documented in any accessible page. Stable.",
+          "source_url": "https://developer.xometry.com/"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "DFM feedback delivered through Xometry web UI only (inline in Instant Quoting Engine during upload). Not present in any API response. Stable.",
+          "source_url": "https://developer.xometry.com/"
+        },
+        "ttfq_speed": {
+          "score": 0,
+          "notes": "No buyer-facing quoting API to measure. Stable.",
+          "source_url": "https://developer.xometry.com/"
+        }
+      },
+      "delta_vs_last_week": 0,
+      "notable_changes": []
+    },
+    {
+      "slug": "hubs",
+      "display_name": "Hubs (Protolabs Network)",
+      "category": "Multi",
+      "total_score": 0,
+      "confidence": "doc-only",
+      "dimensions": {
+        "instant_quote": {
+          "score": 0,
+          "notes": "hubs.com/api/ confirmed 404 again this run. Knowledge base page confirms no developer portal or API documentation exists for Protolabs Network. Legacy Teleport API (consumer 3D printing widget) deprecated post-Protolabs rebrand. No industrial quoting API exists publicly.",
+          "source_url": "https://www.hubs.com/api/"
+        },
+        "structured_pricing": {
+          "score": 0,
+          "notes": "No current public API. Stable.",
+          "source_url": "https://www.hubs.com/api/"
+        },
+        "api_order": {
+          "score": 0,
+          "notes": "No current public API. Order placement requires partner onboarding with Protolabs Network sales. Stable.",
+          "source_url": "https://www.hubs.com/api/"
+        },
+        "order_status": {
+          "score": 0,
+          "notes": "Not documentable. No current public API. Stable.",
+          "source_url": "https://www.hubs.com/api/"
+        },
+        "auth_accessibility": {
+          "score": 0,
+          "notes": "No current public API path. Legacy OAuth1 (Teleport) deprecated. Stable.",
+          "source_url": "https://www.hubs.com/api/"
+        },
+        "rate_limits": {
+          "score": 0,
+          "notes": "Not publicly documented. Stable.",
+          "source_url": "https://www.hubs.com/api/"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "DFM check happens on platform. Not accessible via any public API. Stable.",
+          "source_url": "https://www.hubs.com/api/"
+        },
+        "ttfq_speed": {
+          "score": 0,
+          "notes": "No public API to measure. Stable.",
+          "source_url": "https://www.hubs.com/api/"
+        }
+      },
+      "delta_vs_last_week": 0,
+      "notable_changes": []
+    },
+    {
+      "slug": "protolabs",
+      "display_name": "Protolabs",
+      "category": "Multi",
+      "total_score": 0,
+      "confidence": "doc-only",
+      "dimensions": {
+        "instant_quote": {
+          "score": 0,
+          "notes": "ProDesk (launched February 2026) confirmed web-only platform again this run. CAD upload (STEP, IGES, SolidWorks, STL) happens in browser. No REST API for programmatic CAD submission. ProDesk page confirms features: configurable quotes, order sharing, DFM analysis, production catalog — all UI-only. No developer portal or API documentation links found.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        },
+        "structured_pricing": {
+          "score": 0,
+          "notes": "No public REST API. ProDesk shows real-time pricing in UI as you configure materials/operations. Not programmatically accessible. Stable.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        },
+        "api_order": {
+          "score": 0,
+          "notes": "Web checkout only. Enterprise API access requires direct sales engagement. Not documented publicly. Stable.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        },
+        "order_status": {
+          "score": 0,
+          "notes": "No public API. ProDesk Production Catalog is a UI feature. Stable.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        },
+        "auth_accessibility": {
+          "score": 0,
+          "notes": "No public API to authenticate against. Stable.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        },
+        "rate_limits": {
+          "score": 0,
+          "notes": "No public API. Stable.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "ProDesk includes AI-powered DFM (flags design issues with interactive 3D visuals). Confirmed again this run as UI-only. Not accessible via API. Stable.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        },
+        "ttfq_speed": {
+          "score": 0,
+          "notes": "ProDesk: quotes 'under 4 hours, often as fast as 30 minutes' — but through web UI, not API. Stable.",
+          "source_url": "https://www.protolabs.com/prodesk/"
+        }
+      },
+      "delta_vs_last_week": 0,
+      "notable_changes": []
+    },
+    {
+      "slug": "fictiv",
+      "display_name": "Fictiv",
+      "category": "Multi",
+      "total_score": 0,
+      "confidence": "doc-only",
+      "dimensions": {
+        "instant_quote": {
+          "score": 0,
+          "notes": "fictiv.com/api confirmed 404 again this run. Platform page confirms instant quoting, DFM analysis, and Materials.AI — all UI-only features. No public API, developer portal, or integration partner documentation detected. Post-MISUMI acquisition (April 2025), no API surface changes announced. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        },
+        "structured_pricing": {
+          "score": 0,
+          "notes": "No public API. Instant quoting is web UI-only. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        },
+        "api_order": {
+          "score": 0,
+          "notes": "Enterprise agreement required. Not documented publicly. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        },
+        "order_status": {
+          "score": 0,
+          "notes": "No public API. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        },
+        "auth_accessibility": {
+          "score": 0,
+          "notes": "No public API path. Sales-call-required for any integration discussion. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        },
+        "rate_limits": {
+          "score": 0,
+          "notes": "No public API. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "Auto DFM (sheet metal, injection molding) and Materials.AI confirmed as UI-only. Not API-accessible. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        },
+        "ttfq_speed": {
+          "score": 0,
+          "notes": "No public API to measure. Stable.",
+          "source_url": "https://www.fictiv.com/our-platform"
+        }
+      },
+      "delta_vs_last_week": 0,
+      "notable_changes": []
+    }
+  ],
+  "headlines": [
+    "Stable week — no dimension changes across all 7 vendors: the leaderboard holds at Shapeways 88 / PCBWay 65 / JLCPCB 38",
+    "Three consecutive weeks: Protolabs, Hubs, and Fictiv remain at 0 — no public buyer API surface for multi-process industrial manufacturing",
+    "Xometry audit: supplier Workcenter API (Jobs, Offers, Webhooks) confirmed again — still no buyer-facing quote or order path"
+  ],
+  "total_vendors_probed": 7,
+  "probe_duration_seconds": 210
+}

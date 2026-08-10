@@ -1,0 +1,32 @@
+{"run": "2026-04-30", "slug": "zoo", "total_score": 90, "confidence": "doc-only", "delta": null}
+{"run": "2026-04-30", "slug": "onshape_rest", "total_score": 65, "confidence": "doc-only", "delta": null}
+{"run": "2026-04-30", "slug": "openscad_llm", "total_score": 50, "confidence": "doc-only", "delta": null}
+{"run": "2026-04-30", "slug": "mecagent", "total_score": 35, "confidence": "doc-only", "delta": null}
+{"run": "2026-04-30", "slug": "adam", "total_score": 30, "confidence": "doc-only", "delta": null}
+{"run": "2026-04-30", "slug": "fusion_ai", "total_score": 15, "confidence": "doc-only", "delta": null}
+{"run": "2026-04-30", "slug": "spline", "total_score": 10, "confidence": "doc-only", "delta": null}
+{"run": "2026-04-30", "slug": "shapr3d", "total_score": 5, "confidence": "doc-only", "delta": null}
+{"run":"2026-05-04","slug":"zoo","total_score":90,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"onshape_rest","total_score":65,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"openscad_llm","total_score":50,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"mecagent","total_score":35,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"adam","total_score":30,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"fusion_ai","total_score":15,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"spline","total_score":10,"confidence":"doc-only","delta":0}
+{"run":"2026-05-04","slug":"shapr3d","total_score":5,"confidence":"doc-only","delta":0}
+{"run": "2026-06-10", "slug": "zoo", "total_score": 90, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-10", "slug": "onshape_rest", "total_score": 65, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-10", "slug": "openscad_llm", "total_score": 50, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-10", "slug": "fusion_ai", "total_score": 50, "confidence": "doc-only", "delta": 35}
+{"run": "2026-06-10", "slug": "mecagent", "total_score": 35, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-10", "slug": "adam", "total_score": 35, "confidence": "doc-only", "delta": 5}
+{"run": "2026-06-10", "slug": "spline", "total_score": 10, "confidence": "doc-only", "delta": 0}
+{"run": "2026-06-10", "slug": "shapr3d", "total_score": 5, "confidence": "doc-only", "delta": 0}
+{"run":"2026-06-15","slug":"zoo","total_score":90,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"onshape_rest","total_score":65,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"openscad_llm","total_score":50,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"fusion_ai","total_score":50,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"mecagent","total_score":35,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"adam","total_score":35,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"spline","total_score":10,"confidence":"doc-only","delta":0}
+{"run":"2026-06-15","slug":"shapr3d","total_score":5,"confidence":"doc-only","delta":0}

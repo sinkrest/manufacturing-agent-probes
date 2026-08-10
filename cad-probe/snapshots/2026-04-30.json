@@ -1,0 +1,422 @@
+{
+  "run": "2026-04-30",
+  "methodology_version": "1.0",
+  "probe_notes": "Seed run for the State of Agent CAD probe. All scores doc-only. 8 vendors covering 4 substrate families: ML-CAD (Zoo), Onshape (Adam, Onshape REST baseline), SolidWorks/Inventor (MecAgent), Fusion 360 (Fusion AI), Shapr3D, web-3D (Spline), open-source (OpenSCAD-LLM). Onshape REST included as substrate baseline (Adam runs on top of it) — not a direct competitor. Spline AI is web-3D-focused (DfM-irrelevant) and may be flagged for hide in v2 if it dilutes leaderboard signal. v2 priorities: live-probe Zoo and Onshape with sandbox accounts, deeper Adam Co-Pilot probe once docs ship, MecAgent live-probe via SolidWorks sandbox, add CadQuery+LLM when a defining tool emerges.",
+  "vendors": [
+    {
+      "slug": "zoo",
+      "display_name": "Zoo.dev (KittyCAD)",
+      "category": "Native-AI",
+      "total_score": 90,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 20,
+          "notes": "Modeling API enables 'create or modify geometry with Zoo's CAD engine.' KCL (Kit-Cad Language) is purpose-built parametric scripting that an agent can write to edit assemblies end-to-end.",
+          "source_url": "https://zoo.dev/docs/developer-tools/api"
+        },
+        "feature_tree_introspection": {
+          "score": 10,
+          "notes": "Zoo MCP supports 'inspecting design files and parametric code (KCL),' implying full read access to model state. File operations include conversion + inspection.",
+          "source_url": "https://zoo.dev/docs/developer-tools/mcp"
+        },
+        "structured_output": {
+          "score": 10,
+          "notes": "REST APIs use 'JSON request and response bodies' with an OpenAPI spec at the root endpoint for schema-driven client generation. Strict, parseable, predictable.",
+          "source_url": "https://zoo.dev/docs/developer-tools/api"
+        },
+        "mcp_compat": {
+          "score": 15,
+          "notes": "Public MCP server (`zoo-mcp`) documented as 'a bridge between an AI client and Zoo's design tools.' Setup: `uvx zoo-mcp` with API token. Encourages connecting Claude / Codex / other clients. First CAD vendor with a published MCP.",
+          "source_url": "https://zoo.dev/docs/developer-tools/mcp"
+        },
+        "headless_mode": {
+          "score": 10,
+          "notes": "TypeScript, Python, Rust, and Go SDKs plus a CLI plus direct HTTP. API-first design = pure headless capable.",
+          "source_url": "https://zoo.dev/docs/developer-tools/api"
+        },
+        "auth_accessibility": {
+          "score": 10,
+          "notes": "Bearer-token authentication via API tokens 'created from user accounts' (self-serve). OAuth2 flows also documented in the full reference.",
+          "source_url": "https://zoo.dev/docs/developer-tools/api"
+        },
+        "diff_friendly_export": {
+          "score": 10,
+          "notes": "KCL is a parametric scripting language stored as text — line-level git-diffable. The whole pitch is code-as-CAD.",
+          "source_url": "https://zoo.dev/docs/kcl-lang"
+        },
+        "dfm_feedback": {
+          "score": 5,
+          "notes": "Modeling API supports geometry inspection via the ML-CAD kernel; no explicit DfM endpoint surfaced in public docs at v1.0. Likely partial DfM signal via ML-CAD layer; deeper probe in v2.",
+          "source_url": "https://zoo.dev/docs/developer-tools/api"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    },
+    {
+      "slug": "onshape_rest",
+      "display_name": "Onshape REST API",
+      "category": "CAD-API",
+      "total_score": 65,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 10,
+          "notes": "POST + DELETE HTTP methods documented. FeatureScript API supports programmatic feature creation and edit. Multi-feature chain editing within parts is well-supported; full assembly editing via REST is partial.",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        },
+        "feature_tree_introspection": {
+          "score": 10,
+          "notes": "Full GET endpoints for documents, parts, assemblies, features. Schema-defined, versioned (v6). Real-time access to 'the Onshape engine and data.'",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        },
+        "structured_output": {
+          "score": 10,
+          "notes": "RESTful with JSON bodies, well-defined schemas, versioned endpoints. Enterprise-grade structured output.",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        },
+        "mcp_compat": {
+          "score": 10,
+          "notes": "REST + OAuth + community SDKs (Python, JS) — fully callable by an external agent over HTTP. No first-party MCP server published yet (community work emerging).",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        },
+        "headless_mode": {
+          "score": 10,
+          "notes": "Pure REST API — runs anywhere with HTTP + auth. Documented production use in CI / build pipelines.",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        },
+        "auth_accessibility": {
+          "score": 10,
+          "notes": "OAuth + API key documented as the two primary auth flows. Self-serve key generation for individual / dev accounts.",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        },
+        "diff_friendly_export": {
+          "score": 5,
+          "notes": "FeatureScript is plain text and diffs cleanly. Native Onshape document format is binary; STEP/STL exports are binary. Mixed: text-diffable for code, opaque for geometry.",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "No DfM endpoints surfaced in the REST API. DfM is in-product (visual warnings in the UI), not exposed programmatically.",
+          "source_url": "https://onshape-public.github.io/docs/api-intro/"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    },
+    {
+      "slug": "openscad_llm",
+      "display_name": "OpenSCAD + LLM plugins",
+      "category": "Open-Source",
+      "total_score": 50,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 5,
+          "notes": "Community LLM-to-OpenSCAD tools (e.g., GPT-prompt-to-SCAD repos) generate or modify SCAD code. Scope mostly single-feature; full parametric assembly editing depends on the script structure and LLM context. No defining first-party tool.",
+          "source_url": "https://openscad.org/documentation.html"
+        },
+        "feature_tree_introspection": {
+          "score": 5,
+          "notes": "OpenSCAD has no traditional feature tree — it's a script-based system. LLM tools can read the script as text but cannot introspect a parametric tree per se. Scoring 5 (names-only equivalent: variable names + module structure visible).",
+          "source_url": "https://openscad.org/documentation.html"
+        },
+        "structured_output": {
+          "score": 5,
+          "notes": "LLM-driven tools output SCAD code — structured text, parseable but not schema-compliant. No formal change-log format.",
+          "source_url": "https://openscad.org/documentation.html"
+        },
+        "mcp_compat": {
+          "score": 5,
+          "notes": "Community MCP wrappers and CLI tooling exist around OpenSCAD; nothing first-party. Browser-extension-equivalent: lives in one orbit (community), no formal cross-agent contract.",
+          "source_url": "https://openscad.org/documentation.html"
+        },
+        "headless_mode": {
+          "score": 10,
+          "notes": "Documented 'Using OpenSCAD in a command line environment' — `openscad -o output.stl input.scad` is canonical. WebAssembly node.js standalone build also documented.",
+          "source_url": "https://openscad.org/documentation.html"
+        },
+        "auth_accessibility": {
+          "score": 10,
+          "notes": "Free, open-source, no authentication. An agent can pull the binary and run it. Maximum onboarding speed.",
+          "source_url": "https://openscad.org/documentation.html"
+        },
+        "diff_friendly_export": {
+          "score": 10,
+          "notes": "SCAD files are plain text. Perfect git-diff. Code-as-CAD, the original form.",
+          "source_url": "https://openscad.org/documentation.html"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "OpenSCAD has no built-in DfM signal. Some community libraries add manufacturability hints, but nothing standardized.",
+          "source_url": "https://openscad.org/documentation.html"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    },
+    {
+      "slug": "mecagent",
+      "display_name": "MecAgent",
+      "category": "Plugin",
+      "total_score": 35,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 10,
+          "notes": "Positions as 'First AI CAD Copilot for Mechanical CAD Software'. Capabilities include text-to-3D generating STEP/STL, plus task automation across sketching, constraints, drawings, bulk exports on SolidWorks and Inventor. Multi-feature chain scope confirmed; full-assembly scope not explicitly documented at v1.0 review.",
+          "source_url": "https://mecagent.com"
+        },
+        "feature_tree_introspection": {
+          "score": 10,
+          "notes": "Constraint and sketch automation requires reading the existing feature tree state. Real-time pricing implies model-context awareness across the full part / assembly.",
+          "source_url": "https://mecagent.com"
+        },
+        "structured_output": {
+          "score": 0,
+          "notes": "UI-driven actions in SolidWorks/Inventor. No documented diff format or structured change-log surface.",
+          "source_url": "https://mecagent.com"
+        },
+        "mcp_compat": {
+          "score": 5,
+          "notes": "Desktop plugin lock-in (SolidWorks + Inventor live; CATIA, Fusion 360, NX, SolidEdge, Onshape, Creo planned). Same scoring shape as Adam's browser-extension lock-in: works inside the host app's UI, no headless / programmatic call path documented.",
+          "source_url": "https://mecagent.com"
+        },
+        "headless_mode": {
+          "score": 0,
+          "notes": "Desktop CAD application required. No CLI / SDK / headless build documented.",
+          "source_url": "https://mecagent.com"
+        },
+        "auth_accessibility": {
+          "score": 5,
+          "notes": "Self-serve download via download.mecagent.com/dashboard/plan; demo-booking option for enterprise. Falls into the self-serve sign-up tier.",
+          "source_url": "https://mecagent.com"
+        },
+        "diff_friendly_export": {
+          "score": 0,
+          "notes": "Native binary formats (SLDPRT, IPT). Documented exports are PDF / DXF / DRW — also non-parametric, not git-diffable.",
+          "source_url": "https://mecagent.com"
+        },
+        "dfm_feedback": {
+          "score": 5,
+          "notes": "Standards compliance checks documented as a core capability — partial DfM signal (compliance-flavored rather than purely manufacturability-flavored). Not yet structured machine-readable, but more than zero. v2 candidate to upgrade once docs detail the output format.",
+          "source_url": "https://mecagent.com"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    },
+    {
+      "slug": "adam",
+      "display_name": "Adam",
+      "category": "Plugin",
+      "total_score": 30,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 10,
+          "notes": "'Feature Tree Optimization' (find duplicate features and merge them), 'Parametrization' (set distinct variables that cascade through the design), and 'Selection Context' (high-level commands using selected CAD context) — chain-of-features within one part confirmed; full assembly scope unspecified in public materials.",
+          "source_url": "https://adam.new"
+        },
+        "feature_tree_introspection": {
+          "score": 10,
+          "notes": "'Selection Context' takes a high-level command and 'uses the selected context of your CAD to create new features,' which requires reading current model state. Tree + dimensions implied by parametric edit scope.",
+          "source_url": "https://adam.new"
+        },
+        "structured_output": {
+          "score": 0,
+          "notes": "Output format not documented. No published schema for the diff Adam applies to Onshape models. v2 candidate to probe via direct extension inspection.",
+          "source_url": "https://adam.new"
+        },
+        "mcp_compat": {
+          "score": 5,
+          "notes": "Browser extension on Onshape (also web app at adam.new). YC profile mentions an upcoming 'Adam Co-Pilot' for integration within professional CAD environments — still extension-shaped. No public REST or MCP path documented.",
+          "source_url": "https://www.ycombinator.com/companies/adam"
+        },
+        "headless_mode": {
+          "score": 0,
+          "notes": "Chrome extension required. No CLI, no headless build documented.",
+          "source_url": "https://adam.new"
+        },
+        "auth_accessibility": {
+          "score": 5,
+          "notes": "'Try Adam Web App' + 'Install Adam Extension' suggest self-serve sign-up. No documented API key flow yet.",
+          "source_url": "https://adam.new"
+        },
+        "diff_friendly_export": {
+          "score": 0,
+          "notes": "Outputs Onshape internal format (binary). User testimonial mentions STL export — also binary. No parametric-script export documented.",
+          "source_url": "https://adam.new"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "No DfM signal surfaced in public materials at v1.0 review. Likely some basic warnings in Co-Pilot demos; deeper probe in v2.",
+          "source_url": "https://adam.new"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    },
+    {
+      "slug": "fusion_ai",
+      "display_name": "Autodesk Fusion 360 AI",
+      "category": "Plugin",
+      "total_score": 15,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 5,
+          "notes": "Autodesk Platform Services (formerly Forge) offers some Fusion API surface, but AI features (generative design, AI assistant) are largely in-app and not programmatically callable. Single-feature edit at best via public APS surface.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        },
+        "feature_tree_introspection": {
+          "score": 5,
+          "notes": "Partial introspection via APS Data Management + Model Derivative APIs. Names-level access; deep parametric tree access is in-product.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        },
+        "structured_output": {
+          "score": 0,
+          "notes": "AI features not documented in the public APS API surface. No structured output schema for the AI assistant.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        },
+        "mcp_compat": {
+          "score": 0,
+          "notes": "AI features are in-app only. APS exists but is a different surface (file management + viewing); no MCP, no agent-callable AI endpoint.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        },
+        "headless_mode": {
+          "score": 0,
+          "notes": "Fusion 360 is a desktop application. AI features require the running desktop instance.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        },
+        "auth_accessibility": {
+          "score": 0,
+          "notes": "APS access for many production use cases requires business verification / sales engagement. Not self-serve in the same way Onshape REST is.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        },
+        "diff_friendly_export": {
+          "score": 0,
+          "notes": "Native .f3d format is binary. STEP/STL export downstream is also binary.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        },
+        "dfm_feedback": {
+          "score": 5,
+          "notes": "Generative design has manufacturability constraints baked in (manufacturing methods as inputs). Not exposed as a structured DfM API; warnings live in the desktop UI.",
+          "source_url": "https://aps.autodesk.com/en/docs/fusion/v2/overview/"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    },
+    {
+      "slug": "spline",
+      "display_name": "Spline AI",
+      "category": "Web-3D",
+      "total_score": 10,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 5,
+          "notes": "Spline AI features (Spell, AI 3D Generation, AI Textures, AI Style Transfer) operate on web-3D scenes. Single-element edits implied; web/product-design audience, not mechanical CAD.",
+          "source_url": "https://docs.spline.design"
+        },
+        "feature_tree_introspection": {
+          "score": 0,
+          "notes": "Not documented for the AI features.",
+          "source_url": "https://docs.spline.design"
+        },
+        "structured_output": {
+          "score": 0,
+          "notes": "Not documented.",
+          "source_url": "https://docs.spline.design"
+        },
+        "mcp_compat": {
+          "score": 0,
+          "notes": "Web/runtime focus. No documented external API or MCP path for the AI features.",
+          "source_url": "https://docs.spline.design"
+        },
+        "headless_mode": {
+          "score": 0,
+          "notes": "Browser app. AI features run in-product.",
+          "source_url": "https://docs.spline.design"
+        },
+        "auth_accessibility": {
+          "score": 5,
+          "notes": "Self-serve sign-up for the editor. No documented API key flow for AI features.",
+          "source_url": "https://docs.spline.design"
+        },
+        "diff_friendly_export": {
+          "score": 0,
+          "notes": "Spline scene format is opaque. Web-3D exports (GLTF/GLB) are binary.",
+          "source_url": "https://docs.spline.design"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "Web 3D — DfM-irrelevant. Probe row included for category completeness; candidate for v2 hide if it dilutes leaderboard.",
+          "source_url": "https://docs.spline.design"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    },
+    {
+      "slug": "shapr3d",
+      "display_name": "Shapr3D AI",
+      "category": "Plugin",
+      "total_score": 5,
+      "confidence": "doc-only",
+      "dimensions": {
+        "parametric_edit": {
+          "score": 5,
+          "notes": "AI features mentioned ('AI + Live AR design reviews', 'AI renders'). Implementation specifics absent from public docs. Single-feature edit at best from what's surfaced.",
+          "source_url": "https://www.shapr3d.com"
+        },
+        "feature_tree_introspection": {
+          "score": 0,
+          "notes": "No public API or plugin SDK documented at v1.0 review.",
+          "source_url": "https://www.shapr3d.com"
+        },
+        "structured_output": {
+          "score": 0,
+          "notes": "Not documented.",
+          "source_url": "https://www.shapr3d.com"
+        },
+        "mcp_compat": {
+          "score": 0,
+          "notes": "GUI-only. No API, no plugin SDK, no documented programmatic access.",
+          "source_url": "https://www.shapr3d.com"
+        },
+        "headless_mode": {
+          "score": 0,
+          "notes": "Multi-platform GUI app (Windows / macOS / iPad / Vision Pro). All operations in-product.",
+          "source_url": "https://www.shapr3d.com"
+        },
+        "auth_accessibility": {
+          "score": 0,
+          "notes": "Public site routes developer questions to /contact-sales — sales-gated.",
+          "source_url": "https://www.shapr3d.com"
+        },
+        "diff_friendly_export": {
+          "score": 0,
+          "notes": "Native format binary. STEP/STL export binary.",
+          "source_url": "https://www.shapr3d.com"
+        },
+        "dfm_feedback": {
+          "score": 0,
+          "notes": "Not documented.",
+          "source_url": "https://www.shapr3d.com"
+        }
+      },
+      "delta_vs_last_week": null,
+      "notable_changes": []
+    }
+  ],
+  "headlines": [
+    "Zoo.dev tops seed leaderboard at 90/100 — first CAD vendor to ship a public MCP server (zoo-mcp), KCL parametric language, and a full SDK suite (TS / Python / Rust / Go).",
+    "Plugin-class agents in dead heat: MecAgent (SolidWorks + Inventor, €2.75M seed) edges Adam (YC W25, Onshape, $4.1M) 35 → 30 — partial DfM signal via standards-compliance checks tips MecAgent ahead. Both capped by host-app lock-in (mcp_compat=5) and binary export.",
+    "Universal weakness: 4 of 8 vendors score 0 on dfm_feedback — the integration gap that breaks multi-agent pipelines."
+  ],
+  "total_vendors_probed": 8,
+  "probe_duration_seconds": 540
+}

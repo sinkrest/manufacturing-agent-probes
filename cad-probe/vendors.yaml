@@ -1,0 +1,141 @@
+# Forkable Factory — CAD Probe Vendor Registry
+# Source of truth for /cad-probe vendor list.
+# Each entry describes where to probe and what to probe for.
+#
+# Fields:
+#   slug            — URL-safe identifier (used in file paths, keys)
+#   display_name    — human-readable name
+#   category        — Native-AI | CAD-API | Plugin | Web-3D | Open-Source
+#   homepage        — main vendor site
+#   docs_url        — public documentation / API reference
+#   auth            — oauth2 | api_key | self_serve | sales_call | extension_only
+#   sandbox         — public | on_request | extension | none
+#   sandbox_env_var — env var to set if sandbox access is acquired (reserved for v2)
+#   substrate       — what CAD platform the agent runs on (if applicable)
+#   notes           — free-form context / gotchas
+
+methodology_version: "1.0"
+last_reviewed: "2026-06-10"
+
+vendors:
+  - slug: adam
+    display_name: "Adam"
+    category: "Plugin"
+    homepage: "https://adam.new"
+    docs_url: "https://adam.new"
+    auth: "extension_only"
+    sandbox: "extension"
+    sandbox_env_var: "ADAM_API_KEY"
+    substrate: "Onshape"
+    notes: "YC W25. $4.1M seed (Oct 2025). Browser extension on Onshape. Founders: Zach Dive (CEO), Aaron Li (CPO). Started with viral text-to-3D, pivoted to CAD copilot. Live in Onshape App Store."
+
+  - slug: mecagent
+    display_name: "MecAgent"
+    category: "Plugin"
+    homepage: "https://mecagent.com"
+    docs_url: "https://mecagent.com"
+    auth: "self_serve"
+    sandbox: "public"
+    sandbox_env_var: "MECAGENT_API_KEY"
+    substrate: "SOLIDWORKS + Inventor (live); CATIA, Fusion 360, NX, SolidEdge, Onshape, Creo (planned)"
+    notes: "Founded 2025 by Owein Dourneau, Guillaume Debregeas, Alexandre Senet. €2.75M ($3M) seed — Outlander VC, Founders Inc., Earthling VC, Kima Ventures, Irregular Expressions; angels Thomas Wolf, Arnaud Kooij. Positions as 'First AI CAD Copilot for Mechanical CAD Software'. Capabilities: text-to-3D (STEP/STL), CAD task automation, standards compliance checks, real-time pricing, native exports (PDF/DXF/DRW). Self-serve download via download.mecagent.com/dashboard/plan; demo-booking option. SOC 2 certified. No public REST API or MCP documented as of 2026-04-30. Direct head-on competitor to Adam — also Plugin category but enterprise-mech substrate vs Adam's Onshape-extension."
+
+  - slug: zoo
+    display_name: "Zoo.dev (KittyCAD)"
+    category: "Native-AI"
+    homepage: "https://zoo.dev"
+    docs_url: "https://zoo.dev/docs"
+    auth: "api_key"
+    sandbox: "public"
+    sandbox_env_var: "ZOO_API_TOKEN"
+    substrate: "ML-CAD (purpose-built kernel)"
+    notes: "Purpose-built ML-CAD platform with structured REST API. ML-CAD geometry kernel. Self-serve signup + tokens. Modeling app + Text-to-CAD endpoints documented."
+
+  - slug: spline
+    display_name: "Spline AI"
+    category: "Web-3D"
+    homepage: "https://spline.design"
+    docs_url: "https://docs.spline.design"
+    auth: "self_serve"
+    sandbox: "public"
+    sandbox_env_var: "SPLINE_TOKEN"
+    substrate: "Spline runtime"
+    notes: "3D-for-web AI assist. Targets web/product designers, not mechanical engineering. Probe for completeness — DfM-irrelevant. Likely to be flagged for v2 hide if it dilutes leaderboard."
+
+  - slug: onshape_rest
+    display_name: "Onshape REST API"
+    category: "CAD-API"
+    homepage: "https://www.onshape.com"
+    docs_url: "https://onshape-public.github.io/docs/api-intro/"
+    auth: "oauth2"
+    sandbox: "public"
+    sandbox_env_var: "ONSHAPE_API_KEY"
+    substrate: "Onshape (PTC)"
+    notes: "Read-mostly baseline. Adam's substrate. Strong introspection, weak parametric write. Featurescript bridges some gaps. Included as substrate baseline, not direct competitor."
+
+  - slug: fusion_ai
+    display_name: "Autodesk Fusion 360 AI"
+    category: "Plugin"
+    homepage: "https://www.autodesk.com/products/fusion-360"
+    docs_url: "https://help.autodesk.com/view/fusion360/ENU/"
+    auth: "self_serve"
+    sandbox: "public"
+    sandbox_env_var: "FUSION_API_KEY"
+    substrate: "Fusion 360"
+    notes: "MAJOR SHIFT 2026-04-15: first-party Fusion MCP (local, tech preview) + Fusion Data MCP (remote, tech preview) + Fusion Automation MCP (private beta) announced on APS blog; official docs at help.autodesk.com/view/ADSKMCP/ENU/; MCP add-in self-serve via Fusion App Store. Assistant prompt-to-API + Electronics Python API (read-only) added May 2026. Auth upgraded from sales_call — App Store add-in path is subscriber self-serve. Earlier: generative design, AI assistant in-app only."
+
+  - slug: shapr3d
+    display_name: "Shapr3D AI"
+    category: "Plugin"
+    homepage: "https://www.shapr3d.com"
+    docs_url: "https://www.shapr3d.com/learn"
+    auth: "sales_call"
+    sandbox: "none"
+    sandbox_env_var: "SHAPR3D_API_KEY"
+    substrate: "Shapr3D"
+    notes: "Touch/iPad-first CAD. AI features added 2025. Largely GUI-locked; no public API documented at v1.0 review."
+
+  - slug: openscad_llm
+    display_name: "OpenSCAD + LLM plugins"
+    category: "Open-Source"
+    homepage: "https://openscad.org"
+    docs_url: "https://openscad.org/documentation.html"
+    auth: "self_serve"
+    sandbox: "public"
+    sandbox_env_var: ""
+    substrate: "OpenSCAD"
+    notes: "Open-source. Code-as-CAD already diff-friendly. LLM integration is community-driven (e.g., GPT-prompt-to-SCAD repos, llm-openscad CLI tools). Maps the open-hardware path. No central maintainer for the LLM side."
+
+# ─────────────────────────────────────────────────────────────
+# Expansion list — runner-up vendors for v2 (NOT probed in MVP)
+# ─────────────────────────────────────────────────────────────
+expansion_list:
+  - slug: cadquery_llm
+    display_name: "CadQuery + LLM"
+    category: "Open-Source"
+    reason: "Python-based parametric CAD. LLM integration emerging. Probe once a defining tool ships."
+
+  - slug: meshy
+    display_name: "Meshy"
+    category: "Native-AI"
+    reason: "Text-to-3D mesh generator. Closer to Spline than to mechanical CAD; revisit if they pivot."
+
+  - slug: ptc_creo_ai
+    display_name: "PTC Creo AI"
+    category: "Plugin"
+    reason: "Enterprise. Add when public AI features are documented."
+
+  - slug: solidworks_ai
+    display_name: "SolidWorks AI"
+    category: "Plugin"
+    reason: "Dassault Systèmes. Add when public AI surface is documented."
+
+  - slug: build123d
+    display_name: "Build123d"
+    category: "Open-Source"
+    reason: "Modern Python CAD. Successor to CadQuery in some communities. Watch for LLM integrations."
+
+  - slug: nomad_sculpt_ai
+    display_name: "Nomad Sculpt AI"
+    category: "Native-AI"
+    reason: "Touch-first sculpting. Add if they expose programmatic surface."

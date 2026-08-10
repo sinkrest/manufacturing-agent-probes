@@ -1,0 +1,161 @@
+# Forkable Factory — API Probe Vendor Registry
+# Source of truth for /ff-api-probe vendor list.
+# Each entry describes where to probe and what to probe for.
+#
+# Fields:
+#   slug            — URL-safe identifier (used in file paths, keys)
+#   display_name    — human-readable name
+#   category        — CNC | 3DP | PCB | Sheet | Multi
+#   homepage        — main vendor site
+#   docs_url        — public API documentation
+#   auth            — oauth2 | api_key | api_key_on_request | sales_call
+#   sandbox         — public | on_request | none
+#   sandbox_env_var — env var to set if a sandbox key is acquired (reserved for v2)
+#   endpoints       — known probe targets (for future sandbox probing)
+#   notes           — free-form field for context / gotchas
+
+methodology_version: "1.0"
+last_reviewed: "2026-04-16"
+
+vendors:
+  - slug: xometry
+    display_name: "Xometry"
+    category: "Multi"
+    homepage: "https://www.xometry.com"
+    docs_url: "https://www.xometry.com/api/docs"
+    auth: "api_key_on_request"
+    sandbox: "on_request"
+    sandbox_env_var: "XOMETRY_API_KEY"
+    endpoints:
+      quote: "https://api.xometry.com/v1/quotes"
+      order: "https://api.xometry.com/v1/orders"
+      status: "https://api.xometry.com/v1/orders/{id}"
+    notes: "Public OpenAPI spec available. CNC, 3D printing, sheet metal. STEP/STL accepted."
+
+  - slug: protolabs
+    display_name: "Protolabs"
+    category: "Multi"
+    homepage: "https://www.protolabs.com"
+    docs_url: "https://www.protolabs.com/resources/design-tips/api/"
+    auth: "sales_call"
+    sandbox: "on_request"
+    sandbox_env_var: "PROTOLABS_API_KEY"
+    endpoints:
+      quote: "https://api.protolabs.com/quotes"
+      order: "https://api.protolabs.com/orders"
+      status: "https://api.protolabs.com/orders/{id}"
+    notes: "API exists but access is gated behind sales. Digital thread product line."
+
+  - slug: hubs
+    display_name: "Hubs (Protolabs Network)"
+    category: "Multi"
+    homepage: "https://www.hubs.com"
+    docs_url: "https://www.hubs.com/api/"
+    auth: "api_key_on_request"
+    sandbox: "on_request"
+    sandbox_env_var: "HUBS_API_KEY"
+    endpoints:
+      quote: "https://api.hubs.com/v1/quotes"
+      order: "https://api.hubs.com/v1/orders"
+      status: "https://api.hubs.com/v1/orders/{id}"
+    notes: "Acquired by Protolabs. API still operates under Hubs brand for distributed network."
+
+  - slug: pcbway
+    display_name: "PCBWay"
+    category: "PCB"
+    homepage: "https://www.pcbway.com"
+    docs_url: "https://www.pcbway.com/api_v1.html"
+    auth: "api_key"
+    sandbox: "public"
+    sandbox_env_var: "PCBWAY_API_KEY"
+    endpoints:
+      quote: "https://api.pcbway.com/v1/Address/PriceCalculation"
+      order: "https://api.pcbway.com/v1/OrderPlacing"
+      status: "https://api.pcbway.com/v1/OrderStatus"
+    notes: "Self-serve API keys. Gerber file upload. PCB + assembly + CNC."
+
+  - slug: jlcpcb
+    display_name: "JLCPCB"
+    category: "PCB"
+    homepage: "https://jlcpcb.com"
+    docs_url: "https://jlcpcb.com/help/article/openapi-document"
+    auth: "api_key"
+    sandbox: "public"
+    sandbox_env_var: "JLCPCB_API_KEY"
+    endpoints:
+      quote: "https://openapi.jlcpcb.com/pcbOrderService/pcb/orderPrice"
+      order: "https://openapi.jlcpcb.com/pcbOrderService/pcb/placeOrder"
+      status: "https://openapi.jlcpcb.com/pcbOrderService/pcb/orderDetail"
+    notes: "OpenAPI docs public. PCB + PCBA. Auth requires account verification."
+
+  - slug: shapeways
+    display_name: "Shapeways"
+    category: "3DP"
+    homepage: "https://www.shapeways.com"
+    docs_url: "https://developers.shapeways.com/"
+    auth: "oauth2"
+    sandbox: "public"
+    sandbox_env_var: "SHAPEWAYS_CLIENT_ID"
+    endpoints:
+      quote: "https://api.shapeways.com/price/v1"
+      order: "https://api.shapeways.com/orders/v1"
+      status: "https://api.shapeways.com/orders/v1/{id}"
+    notes: "OAuth2 self-serve. 3D printing only. Full REST API with webhook support."
+
+  - slug: fictiv
+    display_name: "Fictiv"
+    category: "Multi"
+    homepage: "https://www.fictiv.com"
+    docs_url: "https://www.fictiv.com/api"
+    auth: "sales_call"
+    sandbox: "on_request"
+    sandbox_env_var: "FICTIV_API_KEY"
+    endpoints:
+      quote: "https://api.fictiv.com/v1/quotes"
+      order: "https://api.fictiv.com/v1/orders"
+      status: "https://api.fictiv.com/v1/orders/{id}"
+    notes: "API access gated through sales. CNC, 3DP, injection molding, urethane casting."
+
+# ─────────────────────────────────────────────────────────────
+# Expansion list — runner-up vendors for v2 (NOT probed in MVP)
+# ─────────────────────────────────────────────────────────────
+expansion_list:
+  - slug: plethora
+    display_name: "Plethora"
+    category: "CNC"
+    reason: "CNC-focused, instant quoting UI but no public API docs yet"
+
+  - slug: sendcutsend
+    display_name: "SendCutSend"
+    category: "Sheet"
+    reason: "Sheet metal + CNC, instant online quoting — probe for API once exposed"
+
+  - slug: osh_park
+    display_name: "OSH Park"
+    category: "PCB"
+    reason: "Hobbyist PCB fab. No public API, but cult following"
+
+  - slug: oshcut
+    display_name: "OSH Cut"
+    category: "Sheet"
+    reason: "Laser cutting + bending + CNC. Add when API surfaces."
+
+  - slug: sculpteo
+    display_name: "Sculpteo"
+    category: "3DP"
+    reason: "BASF-owned 3DP bureau. Enterprise-focused API."
+
+  - slug: gensun
+    display_name: "Gensun Precision"
+    category: "CNC"
+    reason: "Chinese CNC bureau. Growing instant-quote presence."
+
+  - slug: craftcloud
+    display_name: "Craftcloud (All3DP)"
+    category: "3DP"
+    reason: "3D printing aggregator. Compares bureaus — interesting meta-vendor."
+
+  - slug: hubs_3d
+    display_name: "3D Hubs (legacy)"
+    category: "Multi"
+    reason: "Legacy brand — now Hubs. Retained for historical mapping."
