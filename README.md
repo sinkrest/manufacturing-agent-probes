@@ -94,7 +94,7 @@ Two properties worth knowing:
 - **Data** (`history.jsonl`, `snapshots/`, `vendors.yaml`) — [CC BY 4.0](LICENSE). Use it, chart it, publish from it; credit the Forkable Factory probe and link back.
 - **Methodology documents** — same terms.
 
-Attribution string: *Forkable Factory Manufacturing Agent Probes, Roman Martins — github.com/forkable-factory/manufacturing-agent-probes*
+Attribution string: *Forkable Factory Manufacturing Agent Probes, Roman Martins — github.com/sinkrest/manufacturing-agent-probes*
 
 ---
 

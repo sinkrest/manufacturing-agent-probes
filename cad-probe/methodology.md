@@ -244,7 +244,7 @@ Based on public information at `adam.new`, Y Combinator profile, TechCrunch cove
 
 ## Audit This
 
-If you're a vendor who disagrees with your score: open an issue at [github.com/forkable-factory](https://github.com/forkable-factory) or email [roman@romanmartins.com](mailto:roman@romanmartins.com). Every score has a `source_url` field — if the URL is wrong or stale, we'll re-probe.
+If you're a vendor who disagrees with your score: open an issue at [github.com/sinkrest](https://github.com/sinkrest) or email [roman@romanmartins.com](mailto:roman@romanmartins.com). Every score has a `source_url` field — if the URL is wrong or stale, we'll re-probe.
 
 If you're a builder who sees a dimension we're missing: same channel. Methodology evolves openly.
 
